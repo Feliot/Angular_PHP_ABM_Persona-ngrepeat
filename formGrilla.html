@@ -56,7 +56,7 @@
 					<div class="CajaInicio animated bounceInRight">
 							<h1>Listado de personas</h1>
 							<!-- id="listaPersonas" -->
-								
+								<input type="search" placeholder="buscar persona" ng-model="myfiltro">
 								<table class='table table-hover table-responsive' id="listaPersonas">
 									<thead>
 										<tr>
@@ -68,13 +68,26 @@
 											<th>  MODIFICAR  </th>
 										</tr> 
 									</thead>
-									<tr ng-repeat="persona in ListadoPersonas">
+									<tr ng-repeat="persona in ListadoPersonas | filter:myfiltro">
 
 										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
 							
 										<td>{{persona.nombre}}</td>
-										<td>apellido</td>
-										<td>dni</td>
+										<td>{{persona.apellido}}</td>
+										<td>{{persona.dni}}</td>
+
+										<td><button class='btn btn-danger' name='Borrar' ng-click="Borrar(persona.id)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
+										
+										<td><button class='btn btn-warning' name='Modificar' ng-click="Modificar()"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
+															
+									</tr>
+									<tr ng-repeat="persona in ListadoPersonas | filter:myfiltro">
+
+										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
+							
+										<td></td>
+										<td></td>
+										<td></td>
 
 										<td><button class='btn btn-danger' name='Borrar' ng-click="Borrar(persona.id)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
 										
