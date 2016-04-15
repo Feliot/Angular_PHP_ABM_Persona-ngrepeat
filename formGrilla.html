@@ -68,7 +68,7 @@
 											<th>  MODIFICAR  </th>
 										</tr> 
 									</thead>
-									<tr ng-repeat="persona in ListadoPersonas | filter:myfiltro">
+									<tr ng-repeat="persona in ListadoPersonas | filter : myfiltro">
 
 										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
 							
@@ -81,12 +81,12 @@
 										<td><button class='btn btn-warning' name='Modificar' ng-click="Modificar()"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
 															
 									</tr>
-									<tr ng-repeat="persona in ListadoPersonas | filter:myfiltro">
+									<tr ng-if="resultado.length=0">
 
 										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
 							
 										<td></td>
-										<td></td>
+										<td>no existen personas con esos datos</td>
 										<td></td>
 
 										<td><button class='btn btn-danger' name='Borrar' ng-click="Borrar(persona.id)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
