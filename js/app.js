@@ -75,7 +75,7 @@ app.controller('controlGrilla', function($scope, $http) {
 
 
 
-$http.post("PHP/nexo.php",{accion :"borrar",persona:persona},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+$http.post("PHP/nexo.php",{datos:{accion:"borrar",persona:persona}},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
  .then(function(respuesta) {       
          //aca se ejetuca si retorno sin errores        
          console.log(respuesta.data);

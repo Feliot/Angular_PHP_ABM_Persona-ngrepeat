@@ -72,11 +72,11 @@
 
 										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
 							
-										<td>nombre</td>
+										<td>{{persona.nombre}}</td>
 										<td>apellido</td>
 										<td>dni</td>
 
-										<td><button class='btn btn-danger' name='Borrar' ng-click="Borrar()">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
+										<td><button class='btn btn-danger' name='Borrar' ng-click="Borrar(persona.id)">   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
 										
 										<td><button class='btn btn-warning' name='Modificar' ng-click="Modificar()"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
 															

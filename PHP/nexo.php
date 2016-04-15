@@ -36,8 +36,8 @@ else{
     });
 	*/
 
-	echo "<br> Datos pasados por post";
-	var_dump($_POST);
+	//echo "<br> Datos pasados por post";
+	//var_dump($_POST);
 
 
 
@@ -61,10 +61,24 @@ else{
 	$respuesta = json_decode($DatosPorPost);
 	var_dump($respuesta);
 
-
+	switch ($respuesta->datos->accion)
+	{
+		case 'borrar':
+			# code...
+		echo "estoy borrando";
+		Persona::BorrarPersona($respuesta->datos->persona);
+			break;
+		case 'insertar':
+			# code...
+		echo "estoy insertando";
+		Persona::InsertarPersona($respuesta->datos->persona);
+		default:
+			# code...
+			break;
+	}
 	//echo $respuesta->datos->persona->nombre;
 
-	Persona::InsertarPersona($respuesta->datos->persona);
+	//Persona::InsertarPersona($respuesta->datos->persona);
 
 
 }
