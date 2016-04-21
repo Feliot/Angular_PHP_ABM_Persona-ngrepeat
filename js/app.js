@@ -3,7 +3,10 @@ var app = angular.module('ABMangularPHP', ['ui.router']);
 // se pueden agregar sus distintas variables. entre comillas simpleas
 app.config(function($stateProvider, $urlRouterProvider){
 $stateProvider
-.state('menu',{templateUrl:'templatemenu.html', url:'menu', controller:'controlMenu'})
+.state('menu',{templateUrl:'templatemenu.html', url:'/menu', controller:'controlMenu'})
+.state('alta',{templateUrl:'templateusuario.html', url:'/alta', controller:'controlAlta'})
+.state('grilla',{templateUrl:'templategrilla.html', url:'/grilla', controller:'controlGrilla'})
+//$urlRouterProvider.otherwise('/menu');
 });//fin de app.config
 app.controller('controlMenu', function($scope, $http) {
   $scope.DatoTest="**Menu**";
