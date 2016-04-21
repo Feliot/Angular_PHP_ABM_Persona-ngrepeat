@@ -6,6 +6,7 @@
 		
 
       <!--script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script-->
+     
        	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="http://www.octavio.com.ar/favicon.ico">
@@ -16,6 +17,7 @@
 
 
  	<script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
+ 	<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
  	<script SRC="js/app.js" TYPE="text/javascript"></script>
 	
 </head>
@@ -27,7 +29,7 @@
  
               <ul class="nav nav-tabs">
 		         <li  class="btn btn-info animated bounceInLeft" >
-		         	<a href="index.html">
+		         	<a ui-sref="menu">
 		         		 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
 		         		 Inicio 
 		         	</a>
@@ -48,29 +50,7 @@
 		
 
 	
-	  <div class="container">
-		<div class="page-header">
-			<center><h1>ABM - PHP - Angular</h1> </center>     
-		</div>
-	  	 
-		           
-					<div class="CajaInicio animated bounceInRight">
-							<h1>PERSONAS</h1>
-						
-							<form id="FormIngreso">
- 										
-									    <a href="formAlta.html" class="list-group-item  list-group-item list-group-item-info">
-									      <h4 class="list-group-item-heading">Alta de Personas</h4>
-									    </a>
-										
-										<a href="formGrilla.html" class="list-group-item  list-group-item list-group-item-info">
-									      <h4 class="list-group-item-heading">Grilla de Personas</h4>
-									    </a>
-									
-									  </div>
-									
-							</form>
-						</div>
-		</div>
+	  <div ui-view> 
+	  </div>
 </body>
 </html>
