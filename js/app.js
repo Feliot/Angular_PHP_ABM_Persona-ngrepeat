@@ -6,7 +6,8 @@ $stateProvider
 .state('menu',{templateUrl:'templatemenu.html', url:'/menu', controller:'controlMenu'})
 .state('alta',{templateUrl:'templateusuario.html', url:'/alta', controller:'controlAlta'})
 .state('grilla',{templateUrl:'templategrilla.html', url:'/grilla', controller:'controlGrilla'})
-//$urlRouterProvider.otherwise('/menu');
+.state('modificar',{templateUrl:'templateusuario.html', url:'/modificar/:id', controller:'controlModificar'})
+$urlRouterProvider.otherwise('/menu'); // $urlRouterProvider.otherwise sirve para colocar un estado por efecto.
 });//fin de app.config
 app.controller('controlMenu', function($scope, $http) {
   $scope.DatoTest="**Menu**";
@@ -112,10 +113,26 @@ $http.post("PHP/nexo.php",{datos:{accion:"borrar",persona:persona}},{headers: {'
  	$scope.Modificar=function(id){
  		
  		console.log("Modificar"+id);
+
  	}
 
 
 
 
 
+});
+app.controller('controlModificar', function($scope, $http, $stateparams) {
+  $scope.DatoTest="**modificar**";
+
+//inicio las variables
+  $scope.persona={};
+  $scope.persona.nombre= "asdasd" ;
+  $scope.persona.dni= $stateparams.id;
+  $scope.persona.apellido= "pasd" ;
+  $scope.persona.foto="sinfoto";
+
+
+
+
+  
 });
