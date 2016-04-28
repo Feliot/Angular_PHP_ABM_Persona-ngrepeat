@@ -2,6 +2,16 @@
 
 include "clases/Personas.php";
 // $_GET['accion'];
+
+if ( !empty( $_FILES ) ) {
+    $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
+    // $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+    $uploadPath = "../". DIRECTORY_SEPARATOR . 'fotos' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+    move_uploaded_file( $tempPath, $uploadPath );
+    $answer = array( 'answer' => 'Archivo Cargado!' );
+    $json = json_encode( $answer );
+    echo $json;
+}
 if(isset($_GET['accion']))
 {
 	$accion=$_GET['accion'];
@@ -14,10 +24,6 @@ if(isset($_GET['accion']))
 		$arrayJson = json_encode($respuesta);
 		echo  $arrayJson;
 	}
-
-
-	
-
 }
 else{
 //var_dump($_REQUEST);

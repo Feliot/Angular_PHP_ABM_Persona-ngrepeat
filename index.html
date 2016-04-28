@@ -18,8 +18,15 @@
 
  	<script SRC="bower_components/angular/angular.min.js" TYPE="text/javascript"></script>
  	<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+ 	<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>  <!--Necesito tener las dos aplicaciones abiertas una que pueda subir una foto, depues que la foto se suba cambiar de nombre y subir la foto. por otro lado la info del servidor no se borra, se oculta.
+	{esa funcion cuando vulve se llama callback} solo en tiempo real en ambiente real
+ 	--> 
+
+
  	<script SRC="js/app.js" TYPE="text/javascript"></script>
+ 	<!--lo ultimo es mi aplicacion-->
 	
+  <script type="text/javascript" src="js/directivas/ngThumb.js"></script>
 </head>
 <body ng-app="ABMangularPHP" ng-controller="controlMenu">
 	<!--?php		

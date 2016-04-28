@@ -1,12 +1,13 @@
 
-var app = angular.module('ABMangularPHP', ['ui.router']);
+var app = angular.module('ABMangularPHP', ['ui.router','angularFileUpload']);
 // se pueden agregar sus distintas variables. entre comillas simpleas
+
 app.config(function($stateProvider, $urlRouterProvider){
 $stateProvider
 .state('menu',{templateUrl:'templatemenu.html', url:'/menu', controller:'controlMenu'})
 .state('alta',{templateUrl:'templateusuario.html', url:'/alta', controller:'controlAlta'})
 .state('grilla',{templateUrl:'templategrilla.html', url:'/grilla', controller:'controlGrilla'})
-.state('modificar',{templateUrl:'templateusuario.html', url:'/modificar/:id', controller:'controlModificar'})
+.state('modificar',{templateUrl:'templateusuario.html', url:'/modificar/{:id}?nombre:apellido:dni:foto', controller:'controlModificar'})
 $urlRouterProvider.otherwise('/menu'); // $urlRouterProvider.otherwise sirve para colocar un estado por efecto.
 });//fin de app.config
 app.controller('controlMenu', function($scope, $http) {
@@ -14,9 +15,10 @@ app.controller('controlMenu', function($scope, $http) {
 });
 
 
-app.controller('controlAlta', function($scope, $http) {
+app.controller('controlAlta', function($scope, $http, FileUploader ) {
   $scope.DatoTest="**alta**";
-
+  $scope.uploader = new FileUploader({url: 'PHP/nexo.php'});
+      $scope.uploader.queueLimit = 1; // indico cuantos archivos permito cargar
 //inicio las variables
   $scope.persona={};
   $scope.persona.nombre= "natalia" ;
@@ -26,18 +28,21 @@ app.controller('controlAlta', function($scope, $http) {
 
 
   $scope.Guardar=function(){
-
-
+    $scope.uploader.uploadAll();
   	console.log("persona a guardar:");
     console.log($scope.persona);
     $http.post('PHP/nexo.php', { datos: {accion :"insertar",persona:$scope.persona}})
  	  .then(function(respuesta) {     	
- 		     //aca se ejetuca si retorno sin errores      	
-      	 console.log(respuesta.data);
+ 		     //aca se ejetuca si retorno sin errores  
+        $http.get('PHP/nexo.php', { params: {accion :"traer"}})
+        .then(function(respuesta) {       
 
-    },function errorCallback(response) {     		
+         $scope.ListadoPersonas = respuesta.data.listado;
+         console.log(respuesta.data);
+          },function errorCallback(response) {     		
      		//aca se ejecuta cuando hay errores
-     		console.log( response);     			
+     		console.log( response); 
+        }  );  			
  	  });
   
 
