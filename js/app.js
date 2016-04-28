@@ -22,7 +22,7 @@ app.controller('controlAlta', function($scope, $http) {
   $scope.persona.nombre= "natalia" ;
   $scope.persona.dni= "12312312" ;
   $scope.persona.apellido= "natalia" ;
-  $scope.persona.foto="sinfoto";
+  $scope.persona.foto="pordefecto.png";
 
 
   $scope.Guardar=function(){

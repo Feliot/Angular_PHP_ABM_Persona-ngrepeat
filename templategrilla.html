@@ -20,7 +20,7 @@
 											<th>  MODIFICAR  </th>
 										</tr> 
 									</thead>
-									<tr ng-repeat="persona in ListadoPersonas | filter : myfiltro">
+									<tr ng-repeat="persona in ListadoPersonas | filter : myfiltro as caso0">
 
 										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
 							
@@ -33,7 +33,7 @@
 										<td><button class='btn btn-warning' name='Modificar' ui-sref="modificar({id:persona.id})"><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
 															
 									</tr>
-									<tr ng-if="resultado.length=0">
+									<tr ng-if="caso0.length == 0">
 
 										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
 							
