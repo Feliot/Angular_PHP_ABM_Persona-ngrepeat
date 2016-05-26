@@ -133,18 +133,7 @@ left:0px;
   padding:6% 4%;
 }
 
-input[type="text"],input[type="file"]{
-  width:92%;
-  background:#fff;
-  margin-bottom:2%;
-  border:1px solid #ccc;
-  padding:2%;
-  font-family:'Open Sans',sans-serif;
-  font-size:140%;
-  font-weight: 800;
-  color:#555;
-}
-input[type="text"],input[type="search"]{
+input[type="text"],input[type="file"],input[type="search"],input[type="password"]{
   width:92%;
   background:#fff;
   margin-bottom:2%;

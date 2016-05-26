@@ -99,7 +99,7 @@ class Persona
 		//$consulta =$objetoAccesoDato->RetornarConsulta("select * from persona");
 		$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
-		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "persona");	// como si fuera array de object
+		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "persona");	
 		return $arrPersonas;
 	}
 	

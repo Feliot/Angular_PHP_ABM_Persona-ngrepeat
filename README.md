@@ -1,3 +1,4 @@
-# PHP_ABM_Persona
-ejemplo de alta, baja, modificación y listado 
+# ABM_AngularJs_PHP_persona
 
+
+Ejemplo de la carga de datos usando Angularjs y PHP
