@@ -6,8 +6,8 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
 .config(function($stateProvider, $urlRouterProvider,$authProvider) {
 
   
-  $authProvider.loginUrl = 'ABM_AngularJs_PHP_persona_logueo/PHP/clases/autentificador.php';
-  $authProvider.signupUrl = 'ABM_AngularJs_PHP_persona_logueo/PHP/clases/autentificador.php';
+  $authProvider.loginUrl = 'Angular_PHP_ABM_Persona-ngrepeat/PHP/clases/autentificador.php';
+  $authProvider.signupUrl = 'Angular_PHP_ABM_Persona-ngrepeat/PHP/clases/autentificador.php';
   $authProvider.tokenName = 'tokenTest2016';
   $authProvider.tokenPrefix = 'ABM_Persona';
   $authProvider.authHeader = 'Data';
@@ -167,19 +167,19 @@ app.controller('controlAlta', function($scope, $http ,$state,FileUploader,cargad
 });
 
 
-app.controller('controlGrilla', function($scope, $http,$location,$state) {
+app.controller('controlGrilla', function($scope, $http,$location,$state,factoryPersona) {
   	$scope.DatoTest="**grilla**";
 
-
+console.log(factoryPersona.nombre);
+factoryPersona.mostrarNombre("Molina");
+console.log(factoryPersona.nombre);
 $scope.guardar = function(persona){
 
 console.log( JSON.stringify(persona));
   $state.go("modificar, {persona:" + JSON.stringify(persona)  + "}");
 }
-
- 
  //	$http.get('PHP/nexo.php', { params: {accion :"traer"}})
-  $http.get('http://localhost:8080/ABM_AngularJs_PHP_persona_logueo/Datos/Persona')// el nombre completro de la pagina
+  $http.get('http://localhost:8080/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
  	.then(function(respuesta) {     	
 
       	 $scope.ListadoPersonas = respuesta.data;
@@ -297,5 +297,20 @@ app.service('cargadoDeFoto',function($http,FileUploader){
               objetoUploader.queue.push(dummy);
          });
     }
-
 });//app.service('cargadoDeFoto',function($http,FileUploader){
+ app.factory("factoryPersona",function(servicioUsuario){
+  var persona = {nombre:"German",
+  nombreyApellido:servicioUsuario.reportonarPersona(),
+    mostrarNombre:function(dato)
+    {  this.nombre= dato;
+      //console.log("este es mi nombre "+dato)
+      }
+  };
+  return persona ;
+ }); 
+ app.service('servicioUsuario',function($http){
+   this.reportonarPersona=function(){
+      var listado = "GermanMolina";
+      return listado;
+   };//fin reportnarPersona
+});//app.service
