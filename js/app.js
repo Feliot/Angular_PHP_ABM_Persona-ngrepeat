@@ -156,14 +156,6 @@ app.controller('controlAlta', function($scope, $http ,$state,FileUploader,cargad
         });
     console.info("Ya guardé el archivo.", item, response, status, headers);
   };
-
-
-
-
-
-
-
-
 });
 
 
@@ -171,7 +163,10 @@ app.controller('controlGrilla', function($scope, $http,$location,$state,factoryP
   	$scope.DatoTest="**grilla**";
 
 console.log(factoryPersona.nombre);
-factoryPersona.mostrarNombre("Molina");
+//factoryPersona.mostrarNombre("Molina");
+ factoryPersona.TraerListado().then(function(carga){
+  $scope.ListadoPersonas=  carga;
+});
 console.log(factoryPersona.nombre);
 $scope.guardar = function(persona){
 
@@ -179,8 +174,9 @@ console.log( JSON.stringify(persona));
   $state.go("modificar, {persona:" + JSON.stringify(persona)  + "}");
 }
  //	$http.get('PHP/nexo.php', { params: {accion :"traer"}})
-  $http.get('http://localhost:8080/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
- 	.then(function(respuesta) {     	
+  /*$http.get('http://localhost:8080/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
+ 	
+  .then(function(respuesta) {     	
 
       	 $scope.ListadoPersonas = respuesta.data;
       	 console.log(respuesta.data);
@@ -188,8 +184,8 @@ console.log( JSON.stringify(persona));
     },function errorCallback(response) {
      		 $scope.ListadoPersonas= [];
      		console.log( response);     
- 	 });
-
+ 	 });*/
+  
  	$scope.Borrar=function(persona){
 		console.log("borrar"+persona);
     $http.post("PHP/nexo.php",{datos:{accion :"borrar",persona:persona}},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
@@ -300,17 +296,39 @@ app.service('cargadoDeFoto',function($http,FileUploader){
 });//app.service('cargadoDeFoto',function($http,FileUploader){
  app.factory("factoryPersona",function(servicioUsuario){
   var persona = {nombre:"German",
-  nombreyApellido:servicioUsuario.reportonarPersona(),
+   // servicioUsuario.retornarPersona(),
     mostrarNombre:function(dato)
     {  this.nombre= dato;
+      servicioUsuario.retornarPersona().then(function(respuesta){
+        console.log(respuesta);
+      })
       //console.log("este es mi nombre "+dato)
-      }
+      }//fin de mostrarNombre
+   , TraerListado:  function(){ 
+     return servicioUsuario.retornarPersona().then(function(respuesta){
+        console.log(respuesta);
+        return respuesta ;
+      })
+      //console.log("este es mi nombre "+dato)
+      }//fin de TraerListado
   };
-  return persona ;
+  return persona;
  }); 
- app.service('servicioUsuario',function($http){
-   this.reportonarPersona=function(){
-      var listado = "GermanMolina";
-      return listado;
-   };//fin reportnarPersona
+ app.service('servicioUsuario',function($http){ 
+  //var lista= {
+  this.retornarPersona=function(){
+      //var listado = "GermanMolina";
+     // return listado;
+    return  $http.get('http://localhost:8080/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
+    .then(function(respuesta) {       
+         return  respuesta.data;
+         //console.log(respuesta.data);
+    },function errorCallback(response) {
+        return [];
+       // console.log( response);     
+   });
+   };//fin retornarPersona
+
+ // };//fin lista
+//return lista;
 });//app.service
