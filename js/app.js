@@ -8,7 +8,7 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
   
   $authProvider.loginUrl = 'Angular_PHP_ABM_Persona-ngrepeat/PHP/clases/autentificador.php';
   $authProvider.signupUrl = 'Angular_PHP_ABM_Persona-ngrepeat/PHP/clases/autentificador.php';
-  $authProvider.tokenName = 'tokenTest2016';
+  $authProvider.tokenName = 'mytoken2016';
   $authProvider.tokenPrefix = 'ABM_Persona';
   $authProvider.authHeader = 'Data';
 
@@ -69,14 +69,14 @@ app.controller('controlLoguin', function($scope, $http, $auth, $state) {
       $auth.login({usuario:nombre,clave:pass})
       .then(function(respuestadeauth){
       console.info("respuesta del loguin",respuestadeauth);
+      console.info("respuesta del loguinasda",$auth.isAuthenticated());
       if($auth.isAuthenticated())
       {
-
-        $state.go('alta');
+        $state.go('menu');
       }
       else
         {
-          $state.go('menu');  
+          $state.go('login');  
         }
       //  console.info("datos auth en menu", $auth.isAuthenticated(),$auth.getPayload());
     }).catch(function(parametro){
@@ -319,7 +319,7 @@ app.service('cargadoDeFoto',function($http,FileUploader){
   this.retornarPersona=function(){
       //var listado = "GermanMolina";
      // return listado;
-    return  $http.get('http://localhost:8080/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
+    return  $http.get('/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
     .then(function(respuesta) {       
          return  respuesta.data;
          //console.log(respuesta.data);

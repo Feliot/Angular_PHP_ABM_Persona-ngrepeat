@@ -12,10 +12,10 @@ $objDatos = json_decode(file_get_contents("php://input"));
 //2 - verifico con un método de la clase usuario si son datos válidos
 //3 - de ser válidos creo el token y lo retorno
 
- if($objDatos->usuario=="Demian" && $objDatos->clave=="666")
+ if($objDatos->usuario=="pepe" && $objDatos->clave=="111")
  {
  	$idUsuario = 1;
- 	echo "pepe"
+ 	//echo "pepe";
  }
  else
  {
@@ -29,14 +29,14 @@ if($idUsuario==false)
 					"nombre" => $usuario->nombre,
 					"perfil" => $usuario->perfil,
 					"exp" => time() + 96000,*/
-					"id" => "321",
-					"nombre" => "Demian",
+					"id" => "123",
+					"nombre" => "pepe",
 					"perfil" => "Administrador",
 					"exp" => time() - 96000
 
 				  );
 
-	 $token = Firebase\JWT\JWT::encode($token, 'qwertyuiop6102');
+	 $token = Firebase\JWT\JWT::encode($token, 'mytoken2016');
 	 // token ya terminado
 	 $array['tokenTest2016'] = $token;
 	 echo json_encode($array);
@@ -48,16 +48,16 @@ if($idUsuario==false)
 					"nombre" => $usuario->nombre,
 					"perfil" => $usuario->perfil,
 					"exp" => time() + 96000,*/
-					"id" => "321",
-					"nombre" => "Demian",
+					"id" => "123",
+					"nombre" => "pepe",
 					"perfil" => "Administrador",
 					"exp" => time() + 96000
 
 				  );
 
-	 $token = Firebase\JWT\JWT::encode($token, 'qwertyuiop6102');
+	 $token = Firebase\JWT\JWT::encode($token, 'mytoken2016');
 	 // token ya terminado
-	 $array['tokenTest2016'] = $token;
+	 $array['mytoken2016'] = $token;
 	 echo json_encode($array);
  }
 
