@@ -39,7 +39,13 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
       'menuSuperior': {templateUrl: 'template/menuSuperior.html'}
     }
   })
-  .state('alta', {
+.state('grillaFiltro', {
+    url: '/grillaFiltro',
+    views: {
+      'principal': { templateUrl: 'template/templateGrillaFiltro.html',controller: 'controlGrillaFiltro'} ,
+      'menuSuperior': {templateUrl: 'template/menuSuperior.html'} }    
+  })
+.state('alta', {
     url: '/alta',
     views: {
       'principal': { templateUrl: 'template/templateUsuario.html',controller: 'controlAlta' },
@@ -90,13 +96,24 @@ app.controller('controlLogout',function($scope,$http,$auth,$state){
   {
     $state.go('login');
   }
+  else
+  {
   $auth.logout()
   .then(function(){
   });
+}//fin del else
 });//fin logout
 
 app.controller('controlMenu', function($scope, $http, $auth, $state) {
-  $scope.DatoTest="**Menu**";
+  $scope.DatoTest="test";
+$scope.DatoInicio="Cargame";
+ if(!$auth.isAuthenticated())
+      {
+        console.log("Validacion en Menu INCORRECTA");
+        $state.go('login');
+      }
+else{
+  }//Fin else
  /*if($auth.isAuthenticated())
   {
     $state.go('alta');
@@ -113,13 +130,19 @@ app.controller('controlMenu', function($scope, $http, $auth, $state) {
 
 
 
-app.controller('controlAlta', function($scope, $http ,$state,FileUploader,cargadoDeFoto) {
+app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,cargadoDeFoto) {
+    $scope.uploader = new FileUploader({url: 'PHP/nexo.php'});
+  $scope.uploader.queueLimit = 1;// aparentemente esto tiene que estar antes de la validacion sino tira error.
+   if(!$auth.isAuthenticated())
+      {
+       console.log("Validacion en ALTA INCORRECTA");
+        $state.go('login');
+      }
+  else
+      {
   $scope.DatoTest="**alta**";
-
-  $scope.uploader = new FileUploader({url: 'PHP/nexo.php'});
-  $scope.uploader.queueLimit = 1;
-
 //inicio las variables
+
   $scope.persona={};
   $scope.persona.nombre= "natalia" ;
   $scope.persona.dni= "12312312" ;
@@ -128,7 +151,13 @@ app.controller('controlAlta', function($scope, $http ,$state,FileUploader,cargad
   
   cargadoDeFoto.CargarFoto($scope.persona.foto,$scope.uploader);
  
+ 
+ $scope.Mje=function(){
 
+  servicioMjePost.retornarMje.then(function(carga){
+  $scope.MyMje=  carga;
+});
+  }
 
   $scope.Guardar=function(){
   console.log($scope.uploader.queue);
@@ -156,12 +185,18 @@ app.controller('controlAlta', function($scope, $http ,$state,FileUploader,cargad
         });
     console.info("Ya guardé el archivo.", item, response, status, headers);
   };
-});
+}//fin del else
+ });
 
 
-app.controller('controlGrilla', function($scope, $http,$location,$state,factoryPersona) {
+app.controller('controlGrilla', function($scope, $http,$location,$state,$auth,factoryPersona) {
   	$scope.DatoTest="**grilla**";
-
+ if(!$auth.isAuthenticated())
+      {
+        console.log("Validacion en GRILLA INCORRECTA");
+        $state.go('login');
+      }
+else{
 console.log(factoryPersona.nombre);
 //factoryPersona.mostrarNombre("Molina");
  factoryPersona.TraerListado().then(function(carga){
@@ -169,23 +204,23 @@ console.log(factoryPersona.nombre);
 });
 console.log(factoryPersona.nombre);
 $scope.guardar = function(persona){
-
 console.log( JSON.stringify(persona));
-  $state.go("modificar, {persona:" + JSON.stringify(persona)  + "}");
 }
- //	$http.get('PHP/nexo.php', { params: {accion :"traer"}})
+ // $http.get('PHP/nexo.php', { params: {accion :"traer"}})
   /*$http.get('http://localhost:8080/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
- 	
-  .then(function(respuesta) {     	
+  
+  .then(function(respuesta) {       
 
-      	 $scope.ListadoPersonas = respuesta.data;
-      	 console.log(respuesta.data);
+         $scope.ListadoPersonas = respuesta.data;
+         console.log(respuesta.data);
 
     },function errorCallback(response) {
+
+  $state.go("modificar, {persona:" + JSON.stringify(persona)  + "}");
      		 $scope.ListadoPersonas= [];
      		console.log( response);     
  	 });*/
-  
+   } //fin del ELSE
  	$scope.Borrar=function(persona){
 		console.log("borrar"+persona);
     $http.post("PHP/nexo.php",{datos:{accion :"borrar",persona:persona}},{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
@@ -209,13 +244,24 @@ console.log( JSON.stringify(persona));
               console.log( response);           
       });
  	}// $scope.Borrar
-
-
-
-
-
-
 });//app.controller('controlGrilla',
+
+app.controller('controlGrillaFiltro', function($scope, $http,$location,$state,cienDatos) {
+    $scope.DatoTest="**grillaFiltro**";
+console.info(cienDatos);
+$scope.ListadoPersonas= cienDatos;
+$scope.filtraraPorMoneda= function(valoractual, valoresperado,tercerparametro){
+
+  if(valoractual.indexOf(valoresperado)===0)
+    {return true;
+    console.info("valores ",valoresperado,valoractual);}
+  else{
+
+  return false;}
+};//fin filtrarPorMoneda
+
+});//app.controller('controlGrillaFiltro',
+
 
 app.controller('controlModificacion', function($scope, $http, $state, $stateParams, FileUploader)//, $routeParams, $location)
 {
@@ -319,7 +365,7 @@ app.service('cargadoDeFoto',function($http,FileUploader){
   this.retornarPersona=function(){
       //var listado = "GermanMolina";
      // return listado;
-    return  $http.get('/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completro de la pagina
+    return  $http.get('/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completo de la pagina
     .then(function(respuesta) {       
          return  respuesta.data;
          //console.log(respuesta.data);
@@ -332,3 +378,19 @@ app.service('cargadoDeFoto',function($http,FileUploader){
  // };//fin lista
 //return lista;
 });//app.service
+
+app.service('servicioMjePost',function($http){ 
+  //var lista= {
+  this.retornarMje=function(){
+      //var listado = "GermanMolina";
+     // return listado;
+    return  $http.post('/Angular_PHP_ABM_Persona-ngrepeat/Datos/',{uno: 1, fruta: "manzana"})// el nombre completo de la pagina
+    .then(function(respuesta) {       
+         return  respuesta.data;
+         //console.log(respuesta.data);
+    },function errorCallback(response) {
+        return [];
+       // console.log( response);     
+   });
+   };//fin retornarMje
+});//app.service servicioMjePost

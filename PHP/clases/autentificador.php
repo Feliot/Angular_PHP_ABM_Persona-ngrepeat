@@ -30,15 +30,14 @@ if($idUsuario==false)
 					"perfil" => $usuario->perfil,
 					"exp" => time() + 96000,*/
 					"id" => "123",
-					"nombre" => "pepe",
+					"nombre" => "pepe2",
 					"perfil" => "Administrador",
 					"exp" => time() - 96000
 
 				  );
-
 	 $token = Firebase\JWT\JWT::encode($token, 'mytoken2016');
 	 // token ya terminado
-	 $array['tokenTest2016'] = $token;
+	$array['tokenTest2016'] = $token;
 	 echo json_encode($array);
  }	
  else 

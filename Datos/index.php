@@ -31,6 +31,10 @@ $app->get('/', function ($request, $response, $args) {
     $response->write("Welcome to Slim!");
     return $response;
 });
+$app->post('/', function ($request, $response, $args) {
+    $response->write("Welcome to Slim! post");
+    return $response;
+});
 
 $app->get('/hello[/{name}]', function ($request, $response, $args) {
     $response->write("Hello, " . $args['name']);
