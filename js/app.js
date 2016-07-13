@@ -1,24 +1,14 @@
 
 var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileUpload','satellizer'])
-
-
-
 .config(function($stateProvider, $urlRouterProvider,$authProvider) {
 
-  
   $authProvider.loginUrl = 'Angular_PHP_ABM_Persona-ngrepeat/PHP/clases/autentificador.php';
   $authProvider.signupUrl = 'Angular_PHP_ABM_Persona-ngrepeat/PHP/clases/autentificador.php';
   $authProvider.tokenName = 'mytoken2016';
   $authProvider.tokenPrefix = 'ABM_Persona';
   $authProvider.authHeader = 'Data';
 
-
-
   $stateProvider
-
- 
-
-
 .state('menu', {
     views: {
       'principal': { templateUrl: 'template/menu.html',controller: 'controlMenu' },
@@ -30,8 +20,9 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
    views: {
       'principal': { templateUrl: 'template/templateLoguin.html',controller: 'controlLoguin' },
       'menuSuperior': {templateUrl: 'template/menuSuperior.html'}
-    }, url: "/login"
+    }, url: '/login'
     })
+///{nombre}?:password
 .state('grilla', {
     url: '/grilla',
     views: {
@@ -59,18 +50,49 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
       'menuSuperior': {templateUrl: 'template/menuSuperior.html'}
     }
   })
+  .state("logout", {
+                 views: {
+      'principal': { templateUrl: 'template/templateLoguin.html',controller: 'controlLogout' },
+      'menuSuperior': {templateUrl: 'template/menuSuperior.html'}
+                },
+                url: "/logout"
+            })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login'); //cuando se haga el login feemplazar /menu por /login
 });
 
+app.controller('controlLoguin', function($scope, $http, $auth, $state, $stateParams) {
 
-app.controller('controlLoguin', function($scope, $http, $auth, $state) {
-   $scope.logear=function() {
+$scope.usuario={};
+  $scope.usuario.nombre = "";
+$scope.CargarAdmin=function() {
+$scope.usuario.nombre = "admin";
+$scope.usuario.correo = "admin@admin.com";
+$scope.usuario.clave = "4321";
+};
+$scope.CargarComprador=function() {
+  $scope.usuario.nombre = "comprador";
+  $scope.usuario.correo = "comp@comp.com";
+  $scope.usuario.clave = "1234";
 
-    var mail = $scope.usuario.mail;
-    var nombre = $scope.usuario.nombre;
-    var pass = $scope.usuario.password;
+};
+$scope.CargarVendedor=function() {
+  $scope.usuario.nombre = "vendedor";
+  $scope.usuario.correo = "vend@vend.com";
+  $scope.usuario.clave = "1234";
+
+};
+
+$scope.logearAuto=function() {
+
+     console.info("respuesta del logearAuto",   $scope.usuario.clave ,  $scope.usuario.nombre);
+     this.logear($scope.usuario.clave ,  $scope.usuario.nombre);
+  };//fin logearAuto
+
+
+   $scope.logear=function(pass , nombre) {
+
      console.info("respuesta del loguin1", pass , nombre);
       $auth.login({usuario:nombre,clave:pass})
       .then(function(respuestadeauth){
@@ -91,17 +113,18 @@ app.controller('controlLoguin', function($scope, $http, $auth, $state) {
   };//fin logear
 });//fin del  controlLoguin
 
-app.controller('controlLogout',function($scope,$http,$auth,$state){
-  if(!$auth.isAuthenticated())
-  {
-    $state.go('login');
-  }
-  else
-  {
+app.controller('controlLogout',function($scope, $http, $auth, $location){
+  console.log("Deslogueo mytoken2016");
   $auth.logout()
-  .then(function(){
-  });
-}//fin del else
+        .then(function() {
+            // Desconectamos al usuario y lo redirijimos
+            console.log("Deslogueo mytoken2016");
+           $window.localStorage.removeItem('mytoken2016');
+           $location.path("/Loguin") 
+        },function errorCallback(response) {        
+          //aca se ejecuta cuando hay errores
+          console.log( response);           
+        });
 });//fin logout
 
 app.controller('controlMenu', function($scope, $http, $auth, $state) {
@@ -130,7 +153,7 @@ else{
 
 
 
-app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,cargadoDeFoto) {
+app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,cargadoDeFoto,servicioMjePost) {
     $scope.uploader = new FileUploader({url: 'PHP/nexo.php'});
   $scope.uploader.queueLimit = 1;// aparentemente esto tiene que estar antes de la validacion sino tira error.
    if(!$auth.isAuthenticated())
@@ -244,18 +267,27 @@ console.log( JSON.stringify(persona));
               console.log( response);           
       });
  	}// $scope.Borrar
+
+
+   $scope.videoSources = [];
+        
+        $scope.loadVideos = function() {
+            $scope.videoSources =('http://www.w3schools.com/html/mov_bbb.mp4');
+          
+        };
 });//app.controller('controlGrilla',
 
 app.controller('controlGrillaFiltro', function($scope, $http,$location,$state,cienDatos) {
     $scope.DatoTest="**grillaFiltro**";
 console.info(cienDatos);
 $scope.ListadoPersonas= cienDatos;
-$scope.filtraraPorMoneda= function(valoractual, valoresperado,tercerparametro){
-
+$scope.filtraraPorMoneda= function(valoractual, valoresperado, tercerparametro){
   if(valoractual.indexOf(valoresperado)===0)
     {return true;
     console.info("valores ",valoresperado,valoractual);}
   else{
+
+
 
   return false;}
 };//fin filtrarPorMoneda

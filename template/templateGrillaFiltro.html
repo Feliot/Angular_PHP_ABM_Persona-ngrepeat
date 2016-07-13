@@ -26,7 +26,7 @@
 									</thead>
 									<tbody>
 										
-									<tr  class="animate-repeat" ng-repeat="persona in ListadoPersonas|limitTo:25|orderBy:['apellido','Nombre']|filter:{Sueldo:'€':'hola'}:filtraraPorMoneda| filter:{$:q,apellido:filtroApellido,Nombre:filtroNombre} as results">
+									<tr  class="animate-repeat" ng-repeat="persona in ListadoPersonas|limitTo:25|orderBy:['apellido','Nombre']| filter:{$:q,apellido:filtroApellido,Nombre:filtroNombre} as results">
 
 										<td><img  class='fotoGrilla' ng-src="{{persona.foto}}" /></td>
 							
@@ -34,7 +34,7 @@
 										<td>{{persona.apellido|lowercase}}</td>
 										<td>{{persona.Sueldo}}</td>
 										<td>{{persona.Sueldo_pretendido|currency:'ARG$ '}}</td>
-										<td>{{persona.Fecha_nacimiento|date:shortdate}}</td>
+										<td>{{persona.Fecha_nacimiento|date:'yyyy-MM-dd'}}</td>
 
 									
 															

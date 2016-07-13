@@ -1,14 +1,16 @@
 <div class="container">
 		<div class="page-header">
-			<center> <h1>Datos {{DatoTest}}</h1>   </center>     
+			<center> <h1>Datos {{usuario.nombre}}</h1>   </center>     
 		</div>
 		<div class="CajaInicio animated bounceInRight">
 			<h1> <!--?php echo $titulo; ?-->Loguin </h1>
 
 			<form id="FormLoguin"  enctype="multipart/form-data" >
-				<input type="text" name="nombre" ng-model="usuario.nombre" placeholder="ingrese nombre" value="" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<input type="password" name="dni" ng-model="usuario.password" placeholder="ingrese pasword" value=""     /> 
-				<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<input type="text" name="nombre" ng-model="usuario.nombre" placeholder="ingrese nombre" value="" /> 
+				<input type="text" name="correo" ng-model="usuario.correo" placeholder="ingrese correo" value=""/> 
+
+				<input type="password" name="pass" ng-model="usuario.clave" placeholder="ingrese pasword" value=""/> 
+				
 	
 				<!--img  ng-src="fotos/{{persona.foto}}" class="fotoform" id="foto"/>
 				<p style="  color: black;">*La foto se actualiza al guardar.</p-->
@@ -17,10 +19,14 @@
 				
 			    </ul>
 			
-     
+      <a class="btn btn-info " name="guardar" ng-click="CargarComprador()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Cargar comprador</a>
+				<a class="btn btn-info " name="guardar" ng-click="CargarAdmin()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Cargar administrador</a>
 
-				<a class="btn btn-info " name="guardar" ng-click="logear()" ><span class="glyphicon glyphicon-save">&nbsp;</span>loguear</a>
-					
+				<a class="btn btn-info " name="guardar" ng-click="CargarVendedor()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Cargar vendedor</a>
+
+
+				<a class="btn btn-info " name="guardar" ng-click="logearAuto()" ><span class="glyphicon glyphicon-save">&nbsp;</span>loguear</a>
+					<a class="btn btn-info " name="guardar" ng-click="logear('1234','normal')" ><span class="glyphicon glyphicon-save">&nbsp;</span>Loguear Atutomaticamente</a>
 
 				</div>
 

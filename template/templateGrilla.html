@@ -13,7 +13,8 @@
 								<table class='example-animate-container table table-hover table-responsive' id="listaPersonas">
 									<thead>
 										<tr>
-											<th>  Foto   </th>				
+											<th>  Foto   </th>			
+											<th>  Video   </th>			
 											<th>  Nombre     </th>
 											<th>  Apellido   </th>
 											<th>  Dni        </th>
@@ -26,7 +27,20 @@
 									<tr  class="animate-repeat" ng-repeat="persona in ListadoPersonas| filter:q as results">
 
 										<td><img  class='fotoGrilla' ng-src="fotos/{{persona.foto}}" /></td>
-							
+										<td>
+
+<!--<video ng-src="{{persona.video}}" > 
+								
+									 <video  html5-video='{{ persona.video }}' autoplay='true' controls='true'> 
+									 	<div>
+								<video html5-video='{{ videoSources }}'
+								         controls='true'>
+								    </video>-->
+								<div> <video  html5-video='{{persona.video}}' autoplay='true' controls='true'> </div>
+								    <br>
+								    <a href="#/grilla" ng-click='loadVideos()'>Load videos</a>
+									</div>
+										</td>
 										<td>{{persona.nombre}}</td>
 										<td>{{persona.apellido}}</td>
 										<td>{{persona.dni}}</td>

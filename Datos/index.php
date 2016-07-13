@@ -9,6 +9,7 @@
 require '../vendor/autoload.php';
 require '../PHP/clases/AccesoDatos.php';
 require '../PHP/clases/Personas.php';
+require '../PHP/clases/Usuarios.php';
 /**
  * Step 2: Instantiate a Slim application
  *
@@ -43,6 +44,11 @@ $app->get('/hello[/{name}]', function ($request, $response, $args) {
 
 $app->get('/Persona[/]', function ($request, $response, $args) {
 	$listado=Persona::TraerTodasLasPersonas();
+    $response->write(json_encode($listado));
+    return $response;
+});
+$app->get('/Usuario[/]', function ($request, $response, $args) {
+	$listado=Usuario::TraerTodosLosUsuarios();
     $response->write(json_encode($listado));
     return $response;
 });

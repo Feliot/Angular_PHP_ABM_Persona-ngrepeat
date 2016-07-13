@@ -9,6 +9,7 @@ class Persona
  	public $apellido;
   	public $dni;
   	public $foto;
+  	public $video;
 
 //--------------------------------------------------------------------------------//
 
@@ -33,6 +34,10 @@ class Persona
 	public function GetFoto()
 	{
 		return $this->foto;
+	}
+	public function GetVideo()
+	{
+		return $this->video;
 	}
 
 	public function SetId($valor)
@@ -66,6 +71,7 @@ class Persona
 			$this->nombre = $obj->nombre;
 			$this->dni = $dni;
 			$this->foto = $obj->foto;
+			$this->video = $obj->video;
 		}
 	}
 
