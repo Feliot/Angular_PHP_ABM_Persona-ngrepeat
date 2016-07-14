@@ -1,9 +1,9 @@
 <div class="container">
 		<div class="page-header">
-			<center> <h1>Datos {{usuario.nombre}}</h1>   </center>     
+			<center> <h1>LogIn</h1>   </center>     
 		</div>
 		<div class="CajaInicio animated bounceInRight">
-			<h1> <!--?php echo $titulo; ?-->Loguin </h1>
+			<h1> <!--?php echo $titulo; ?-->Datos de: {{usuario.nombre}}</h1>
 
 			<form id="FormLoguin"  enctype="multipart/form-data" >
 				<input type="text" name="nombre" ng-model="usuario.nombre" placeholder="ingrese nombre" value="" /> 
@@ -28,7 +28,7 @@
 				<a class="btn btn-info " name="guardar" ng-click="logearAuto()" ><span class="glyphicon glyphicon-save">&nbsp;</span>loguear</a>
 					<a class="btn btn-info " name="guardar" ng-click="logear('1234','normal')" ><span class="glyphicon glyphicon-save">&nbsp;</span>Loguear Atutomaticamente</a>
 
-				</div>
+ 			
 
 			</form>
 	</div>

@@ -59,8 +59,23 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
             })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login'); //cuando se haga el login feemplazar /menu por /login
+  $urlRouterProvider.otherwise('/login'); //cuando se haga el login Reemplazar /menu por /login
 });
+
+app.controller('controlMenuSuperior', function($scope, $http, $auth, $state, $stateParams) {
+  //function esAutenticado(){
+$scope.esAutenticado=function(){
+     if($auth.isAuthenticated())
+      {
+          //console.log("esAutenticado true");
+        return true;
+      }
+      else{
+         // console.log("esAutenticado false");
+        return false;
+      }
+  };//fin esAutenticado
+});// FIN controlMenusSuperior
 
 app.controller('controlLoguin', function($scope, $http, $auth, $state, $stateParams) {
 
@@ -81,14 +96,13 @@ $scope.CargarVendedor=function() {
   $scope.usuario.nombre = "vendedor";
   $scope.usuario.correo = "vend@vend.com";
   $scope.usuario.clave = "1234";
-
 };
 
 $scope.logearAuto=function() {
-
      console.info("respuesta del logearAuto",   $scope.usuario.clave ,  $scope.usuario.nombre);
-     this.logear($scope.usuario.clave ,  $scope.usuario.nombre);
+     this.logear($scope.usuario.clave ,  $scope.usuario.nombre); //llama a Loguear
   };//fin logearAuto
+
 
 
    $scope.logear=function(pass , nombre) {
@@ -114,12 +128,12 @@ $scope.logearAuto=function() {
 });//fin del  controlLoguin
 
 app.controller('controlLogout',function($scope, $http, $auth, $location){
-  console.log("Deslogueo mytoken2016");
+ // console.log("Deslogueo mytoken2016");
   $auth.logout()
         .then(function() {
             // Desconectamos al usuario y lo redirijimos
             console.log("Deslogueo mytoken2016");
-           $window.localStorage.removeItem('mytoken2016');
+           localStorage.removeItem('mytoken2016');
            $location.path("/Loguin") 
         },function errorCallback(response) {        
           //aca se ejecuta cuando hay errores
@@ -127,15 +141,23 @@ app.controller('controlLogout',function($scope, $http, $auth, $location){
         });
 });//fin logout
 
-app.controller('controlMenu', function($scope, $http, $auth, $state) {
-  $scope.DatoTest="test";
+app.controller('controlMenu', function($scope, $http, $auth, $state, $location) {
+  $scope.DatoTest="PERSONAS";
 $scope.DatoInicio="Cargame";
+$scope.titulo="..";
  if(!$auth.isAuthenticated())
       {
         console.log("Validacion en Menu INCORRECTA");
         $state.go('login');
       }
 else{
+ $scope.logout=function(){
+            // Desconectamos al usuario y lo redirijimos
+            console.log("Deslogueo mytoken2016");
+           localStorage.removeItem('mytoken2016');
+           $location.path("/Loguin") 
+        }
+
   }//Fin else
  /*if($auth.isAuthenticated())
   {

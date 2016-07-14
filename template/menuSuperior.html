@@ -1,4 +1,4 @@
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs" ng-controller="controlMenuSuperior" >
 		         <li  class="btn btn-info animated bounceInLeft" >
 		         	<a ui-sref="menu">
 		         		 <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
@@ -16,9 +16,22 @@
 		         		<span class="glyphicon glyphicon-th" >&nbsp;</span>
 		         			Grilla</a>
 		         </li>
-		          <button ng-click="main.logout()" ng-show="main.isAuthed()">Logout</button>
+
+		         
+		         	<a class="btn btn-info btn-lg animated bounceInRight" ng-show="esAutenticado()" ui-sref="logout"> 
+		         		<span class="glyphicon glyphicon-log-out" >&nbsp;</span>
+		         			Logout</a>
+		         
+		            <li  class="btn-lg animated bounceInRight" ng-show="!esAutenticado()" >
+		         	 
+		         		<span class="glyphicon glyphicon-log-in" >&nbsp;</span>
+		         			Login
+		         </li> 
+			
+			
+		          
+		         
+		         
 		          
 		        	<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM - PHP - Angular Versión 1.0.1 &nbsp;&nbsp;&nbsp;</span>
-
-
       </ul>

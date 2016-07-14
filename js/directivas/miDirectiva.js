@@ -10,7 +10,7 @@ angular.module("ABMangularPHP").directive("utnBotonMenu",function()
     {
         return {templateUrl:"template/templateBoton.html",
         		restrict:'AEC',
-        		replace:false,
+        		replace:true,
         		scope:{titulo:'@'}
     			};
     });
