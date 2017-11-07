@@ -6,11 +6,17 @@
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
  */
+$config = ['settings' => [
+    'addContentLengthHeader' => false,
+]];
+
+
+
+/*
 require '../vendor/autoload.php';
 require '../PHP/clases/AccesoDatos.php';
 require '../PHP/clases/Personas.php';
 require '../PHP/clases/Usuarios.php';
-/**
  * Step 2: Instantiate a Slim application
  *
  * This example instantiates a Slim application using
@@ -48,10 +54,13 @@ $app->get('/Persona[/]', function ($request, $response, $args) {
     return $response;
 });
 $app->get('/Usuario[/]', function ($request, $response, $args) {
-	$listado=Usuario::TraerTodosLosUsuarios();
+	$listado=usuario::TraerTodosLosUsuarios();
     $response->write(json_encode($listado));
     return $response;
 });
+
+
+
 /*
  * Step 4: Run the Slim application
  *

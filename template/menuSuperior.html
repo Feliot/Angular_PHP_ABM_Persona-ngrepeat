@@ -16,22 +16,15 @@
 		         		<span class="glyphicon glyphicon-th" >&nbsp;</span>
 		         			Grilla</a>
 		         </li>
-
-		         
-		         	<a class="btn btn-info btn-lg animated bounceInRight" ng-show="esAutenticado()" ui-sref="logout"> 
-		         		<span class="glyphicon glyphicon-log-out" >&nbsp;</span>
-		         			Logout</a>
-		         
-		            <li  class="btn-lg animated bounceInRight" ng-show="!esAutenticado()" >
-		         	 
+       		
+		         <a class="btn btn-info btn-lg animated bounceInRight" ng-show="esAutenticado()" ui-sref="logout"><span class="glyphicon glyphicon-log-out" >&nbsp;</span>
+		         			Desloguear {{nombreUsuario}} </a>
+		   
+		         <li  class="btn-lg animated bounceInRight" ng-show="!esAutenticado()" >
 		         		<span class="glyphicon glyphicon-log-in" >&nbsp;</span>
-		         			Login
+		         			{{nombreUsuario}}
 		         </li> 
+		     
 			
-			
-		          
-		         
-		         
-		          
 		        	<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM - PHP - Angular Versión 1.0.1 &nbsp;&nbsp;&nbsp;</span>
       </ul>

@@ -6,8 +6,8 @@
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
  */
-require '../vendor/autoload.php';
-
+require '../../../autoload.php';
+include_once "../../../../PHP/clases/Personas.php";
 /**
  * Step 2: Instantiate a Slim application
  *
@@ -36,6 +36,11 @@ $app->get('/hello[/{name}]', function ($request, $response, $args) {
     return $response;
 })->setArgument('name', 'World!');
 
+$app->get('/Persona[/]', function ($request, $response, $args) {
+	$listado=Persona::TraerTodasLasPersonas();
+    $response->write(json_encode($listado));
+    return $response;
+});
 /**
  * Step 4: Run the Slim application
  *

@@ -16,3 +16,11 @@ angular.module("ABMangularPHP").directive("utnBotonMenu",function()
     });
 //obtuvimos un modulo. y definimos nuestra directiva.
 //scope:true  pasar por valor 
+ angular.module("ABMangularPHP").directive("datosDeLasPersonas",function()
+    {
+        return {templateUrl:"template/templateDatosDePersona.html",
+                restrict:'AEC',
+                replace:true,
+                scope:false
+                };
+    }); 

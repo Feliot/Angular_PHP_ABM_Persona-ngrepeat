@@ -6,15 +6,17 @@
 		</div>
 		<div class="CajaInicio animated bounceInRight">
 			<h1> <!--?php echo $titulo; ?-->titulo </h1>
-
+			<H2> JAZMIN Y EVELIN </H2>
 			<form id="FormIngreso"  enctype="multipart/form-data" >
 				<input type="text" name="apellido" ng-model="persona.apellido" placeholder="ingrese apellido" value="" />
 				<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
 				</span>
-				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="ingrese nombre" value="" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<input type="text" name="dni" ng-model="persona.dni" placeholder="ingrese dni" value=""     /> 
+				<input type="text" name="nombre" ng-model="persona.nombre" placeholder="ingrese nombres" value="" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<input type="text" name="dni" ng-model="persona.dni" placeholder="ingrese DNI" value=""     /> 
 				<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<a class="btn btn-info " name="mje" ng-click="Mje()" ><span >&nbsp;</span>mje</a>
+				
+
+				
 
 				<!--img  ng-src="fotos/{{persona.foto}}" class="fotoform" id="foto"/>
 				<p style="  color: black;">*La foto se actualiza al guardar.</p-->

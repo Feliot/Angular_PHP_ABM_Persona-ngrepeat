@@ -64,6 +64,12 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
 
 app.controller('controlMenuSuperior', function($scope, $http, $auth, $state, $stateParams) {
   //function esAutenticado(){
+     if($auth.isAuthenticated()){
+      $scope.nombreUsuario=  $auth.getPayload().nombre ;
+    }else{
+      $scope.nombreUsuario= "Nadie Logueado aun..";
+    }
+        
 $scope.esAutenticado=function(){
      if($auth.isAuthenticated())
       {
@@ -103,8 +109,6 @@ $scope.logearAuto=function() {
      this.logear($scope.usuario.clave ,  $scope.usuario.nombre); //llama a Loguear
   };//fin logearAuto
 
-
-
    $scope.logear=function(pass , nombre) {
 
      console.info("respuesta del loguin1", pass , nombre);
@@ -129,6 +133,7 @@ $scope.logearAuto=function() {
 
 app.controller('controlLogout',function($scope, $http, $auth, $location){
  // console.log("Deslogueo mytoken2016");
+   console.info("datos auth en menu", $auth.isAuthenticated(),$auth.getPayload());
   $auth.logout()
         .then(function() {
             // Desconectamos al usuario y lo redirijimos
@@ -144,36 +149,15 @@ app.controller('controlLogout',function($scope, $http, $auth, $location){
 app.controller('controlMenu', function($scope, $http, $auth, $state, $location) {
   $scope.DatoTest="PERSONAS";
 $scope.DatoInicio="Cargame";
-$scope.titulo="..";
+$scope.titulo="";
  if(!$auth.isAuthenticated())
       {
         console.log("Validacion en Menu INCORRECTA");
         $state.go('login');
       }
 else{
- $scope.logout=function(){
-            // Desconectamos al usuario y lo redirijimos
-            console.log("Deslogueo mytoken2016");
-           localStorage.removeItem('mytoken2016');
-           $location.path("/Loguin") 
-        }
-
   }//Fin else
- /*if($auth.isAuthenticated())
-  {
-    $state.go('alta');
-  }
-  else
-    {
-      $state.go('menu');
-    }
-
-  $auth.login({usuario:"pepito",clave:"666"});
-  $scope.DatoTest="**Menu**";
-  console.info("datos auth en menu", $auth.isAuthenticated(),$auth.getPayload());*/
-});
-
-
+});//controlMenu
 
 app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,cargadoDeFoto,servicioMjePost) {
     $scope.uploader = new FileUploader({url: 'PHP/nexo.php'});
@@ -195,14 +179,6 @@ app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,
   $scope.persona.foto="pordefecto.png";
   
   cargadoDeFoto.CargarFoto($scope.persona.foto,$scope.uploader);
- 
- 
- $scope.Mje=function(){
-
-  servicioMjePost.retornarMje.then(function(carga){
-  $scope.MyMje=  carga;
-});
-  }
 
   $scope.Guardar=function(){
   console.log($scope.uploader.queue);
@@ -232,7 +208,6 @@ app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,
   };
 }//fin del else
  });
-
 
 app.controller('controlGrilla', function($scope, $http,$location,$state,$auth,factoryPersona) {
   	$scope.DatoTest="**grilla**";
@@ -308,12 +283,8 @@ $scope.filtraraPorMoneda= function(valoractual, valoresperado, tercerparametro){
     {return true;
     console.info("valores ",valoresperado,valoractual);}
   else{
-
-
-
   return false;}
 };//fin filtrarPorMoneda
-
 });//app.controller('controlGrillaFiltro',
 
 
@@ -346,7 +317,6 @@ app.controller('controlModificacion', function($scope, $http, $state, $statePara
          });
   }
   $scope.cargarfoto($scope.persona.foto);
-
 
   $scope.uploader.onSuccessItem=function(item, response, status, headers)
   {
@@ -394,18 +364,18 @@ app.service('cargadoDeFoto',function($http,FileUploader){
          });
     }
 });//app.service('cargadoDeFoto',function($http,FileUploader){
- app.factory("factoryPersona",function(servicioUsuario){
+ app.factory("factoryPersona",function(servicioPersona){
   var persona = {nombre:"German",
-   // servicioUsuario.retornarPersona(),
+   // servicioPersona.retornarPersona(),
     mostrarNombre:function(dato)
     {  this.nombre= dato;
-      servicioUsuario.retornarPersona().then(function(respuesta){
+      servicioPersona.retornarPersona().then(function(respuesta){
         console.log(respuesta);
       })
       //console.log("este es mi nombre "+dato)
       }//fin de mostrarNombre
    , TraerListado:  function(){ 
-     return servicioUsuario.retornarPersona().then(function(respuesta){
+     return servicioPersona.retornarPersona().then(function(respuesta){
         console.log(respuesta);
         return respuesta ;
       })
@@ -413,8 +383,8 @@ app.service('cargadoDeFoto',function($http,FileUploader){
       }//fin de TraerListado
   };
   return persona;
- }); 
- app.service('servicioUsuario',function($http){ 
+ });//FIN  factoryPersona
+ app.service('servicioPersona',function($http){ 
   //var lista= {
   this.retornarPersona=function(){
       //var listado = "GermanMolina";
@@ -424,27 +394,50 @@ app.service('cargadoDeFoto',function($http,FileUploader){
          return  respuesta.data;
          //console.log(respuesta.data);
     },function errorCallback(response) {
-        return [];
-       // console.log( response);     
+        return [];  
    });
    };//fin retornarPersona
-
- // };//fin lista
-//return lista;
 });//app.service
 
 app.service('servicioMjePost',function($http){ 
   //var lista= {
   this.retornarMje=function(){
-      //var listado = "GermanMolina";
-     // return listado;
     return  $http.post('/Angular_PHP_ABM_Persona-ngrepeat/Datos/',{uno: 1, fruta: "manzana"})// el nombre completo de la pagina
     .then(function(respuesta) {       
          return  respuesta.data;
          //console.log(respuesta.data);
     },function errorCallback(response) {
-        return [];
-       // console.log( response);     
+        return [];   
    });
    };//fin retornarMje
 });//app.service servicioMjePost
+
+ app.factory("factoryUsuario",function(servicioUsuario){
+  var usuario = {nombre:"German",
+   // servicioUsuario.retornarPersona(),
+    mostrarNombre:function(dato)
+    {  this.nombre= dato;
+      servicioUsuario.retornarUsuario().then(function(respuesta){
+        console.log(respuesta);
+      })
+      }//fin de mostrarNombre
+   , TraerListado:  function(){ 
+     return servicioUsuario.retornarUsuario().then(function(respuesta){
+        console.log(respuesta);
+        return respuesta ;
+      }) //console.log("este es mi nombre "+dato)
+      }//fin de TraerListado
+  };
+  return usuario;
+ });//FIN  factoryUsuario
+ app.service('servicioUsuario',function($http){ 
+  this.retornarUsuario=function(){
+    return  $http.get('/Angular_PHP_ABM_Persona-ngrepeat/Datos/Usuario')// el nombre completo de la pagina
+    .then(function(respuesta) {       
+         return  respuesta.data;
+         //console.log(respuesta.data);
+    },function errorCallback(response) {
+        return []; // console.log( response);     
+   });
+   };//fin retornarPersona
+});//app.service
