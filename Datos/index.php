@@ -5,18 +5,15 @@
  *
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
- */
-$config = ['settings' => [
-    'addContentLengthHeader' => false,
-]];
-
-
-
-/*
+*$config = ['settings' => [
+*    'addContentLengthHeader' => false,
+*]];
+*/
 require '../vendor/autoload.php';
 require '../PHP/clases/AccesoDatos.php';
 require '../PHP/clases/Personas.php';
 require '../PHP/clases/Usuarios.php';
+/*
  * Step 2: Instantiate a Slim application
  *
  * This example instantiates a Slim application using

@@ -173,9 +173,9 @@ app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,
 //inicio las variables
 
   $scope.persona={};
-  $scope.persona.nombre= "natalia" ;
-  $scope.persona.dni= "12312312" ;
-  $scope.persona.apellido= "natalia" ;
+  $scope.persona.nombre= "" ;
+  $scope.persona.dni= "" ;
+  $scope.persona.apellido= "" ;
   $scope.persona.foto="pordefecto.png";
   
   cargadoDeFoto.CargarFoto($scope.persona.foto,$scope.uploader);
@@ -389,8 +389,9 @@ app.service('cargadoDeFoto',function($http,FileUploader){
   this.retornarPersona=function(){
       //var listado = "GermanMolina";
      // return listado;
-    return  $http.get('/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completo de la pagina
-    .then(function(respuesta) {       
+  //  return  $http.get('/Angular_PHP_ABM_Persona-ngrepeat/Datos/Persona')// el nombre completo de la pagina
+ return  $http.get('/Angular_PHP_ABM_Persona-ngrepeat/PHP/mje.php')
+.then(function(respuesta) {       
          return  respuesta.data;
          //console.log(respuesta.data);
     },function errorCallback(response) {

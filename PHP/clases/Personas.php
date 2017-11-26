@@ -1,6 +1,6 @@
 <?php
-require_once"accesoDatos.php";
-class Persona
+require_once("AccesoDatos.php");
+class persona
 {
 //--------------------------------------------------------------------------------//
 //--ATRIBUTOS
@@ -9,7 +9,7 @@ class Persona
  	public $apellido;
   	public $dni;
   	public $foto;
-  	public $video;
+  	//public $video;
 
 //--------------------------------------------------------------------------------//
 
@@ -35,10 +35,10 @@ class Persona
 	{
 		return $this->foto;
 	}
-	public function GetVideo()
+	/*public function GetVideo()
 	{
 		return $this->video;
-	}
+	}*/
 
 	public function SetId($valor)
 	{
@@ -65,13 +65,13 @@ class Persona
 	public function __construct($dni=NULL)
 	{
 		if($dni != NULL){
-			$obj = Persona::TraerUnaPersona($dni);
+			$obj = persona::TraerUnaPersona($dni);
 			
 			$this->apellido = $obj->apellido;
 			$this->nombre = $obj->nombre;
 			$this->dni = $dni;
 			$this->foto = $obj->foto;
-			$this->video = $obj->video;
+			//$this->video = $obj->video;
 		}
 	}
 
@@ -102,8 +102,8 @@ class Persona
 	public static function TraerTodasLasPersonas()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		//$consulta =$objetoAccesoDato->RetornarConsulta("select * from persona");
-		$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from persona");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
 		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "persona");	
 		return $arrPersonas;

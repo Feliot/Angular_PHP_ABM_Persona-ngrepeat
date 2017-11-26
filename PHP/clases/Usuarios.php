@@ -106,8 +106,8 @@
 		 public static function TraerTodosLosUsuarios()
 	   {
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios");
-		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasProductos() ");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios");
+		$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodosLosUsuarios()");
 		$consulta->execute();			
 		$arrProductos= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario");	
 		return $arrProductos;
