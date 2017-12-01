@@ -9,6 +9,14 @@ var app = angular.module('ABMangularPHP', ['ngAnimate','ui.router','angularFileU
   $authProvider.authHeader = 'Data';
 
   $stateProvider
+
+ .state('mapa', {
+    views: {
+      'principal': { templateUrl: 'template/templateMapa.html',controller: 'controlMapa' },
+      'menuSuperior': {templateUrl: 'template/menuSuperior.html'}
+    }
+    ,url:'/mapa'
+  }) 
 .state('menu', {
     views: {
       'principal': { templateUrl: 'template/menu.html',controller: 'controlMenu' },
@@ -158,6 +166,32 @@ $scope.titulo="";
 else{
   }//Fin else
 });//controlMenu
+
+app.controller('controlMapa', function($scope, $http, $auth, $state, $location) {
+  $scope.DatoTest="Mapita";
+   
+                      
+                          
+ if(!$auth.isAuthenticated())
+      {
+        console.log("Validacion en Menu INCORRECTA");
+        $state.go('login');
+      }
+else{
+        var uluru = {lat: -34.619241, lng: -58.372925}; 
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                              zoom: 4,
+                              center: uluru
+                            });
+                            var marker = new google.maps.Marker({
+                              position: uluru,
+                              map: map
+                            });
+  }//Fin else
+});//controlMenu
+//***
+
+
 
 app.controller('controlAlta', function($scope, $http ,$state,$auth,FileUploader,cargadoDeFoto,servicioMjePost) {
     $scope.uploader = new FileUploader({url: 'PHP/nexo.php'});
@@ -442,3 +476,4 @@ app.service('servicioMjePost',function($http){
    });
    };//fin retornarPersona
 });//app.service
+

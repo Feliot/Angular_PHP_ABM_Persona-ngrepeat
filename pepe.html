@@ -2,12 +2,40 @@
 <HEAD>
 <TITLE> Página de prueba </TITLE>
 </HEAD>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
 <?php
 echo 'GEr';
 
 ?>
 <BODY>
 	<h1>Veamos</h1>
-
+	<input type="button" value="Mostrar Mapa" onclick='initMap();'></input>
+	<a  onclick="sas()"> procesar </a>
+	<div id="map"> </div>
+	   <script>
+		      									function initMap() {
+		      										console.log("PEPE");
+										        var uluru = {lat: -25.363, lng: 131.044};
+										        var map = new google.maps.Map(document.getElementById('map'), {
+										          zoom: 2,
+										          center: uluru
+										        });
+										        var marker = new google.maps.Marker({
+										          position: uluru,
+										          map: map
+										        });
+										      }
+										      function sas(){
+										      	console.log("nose");
+										      }
+										    </script>
+											<script async defer
+											src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9rbSDogGjpc7hYkzphrE9byUUA-_roE0">
+										    </script>
 </BODY>
 </HTML>
